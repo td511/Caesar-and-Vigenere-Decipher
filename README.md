@@ -1,2 +1,2 @@
 # Caesar-and-Vigenere-Decipher
-code and decode Caesar and Vigenere Cipher using Python
+Decoding and coding Caesar and Vigenere Cipher using Python.
