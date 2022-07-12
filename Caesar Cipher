@@ -38,3 +38,26 @@ def code(offset, message):
             else:
                 new_message += chr(num - offset)
     return new_message
+    
+# Without an offset value, we can use brute force:
+for i in range(26):
+    print(decode(message, i))
+# Then we read all the decoding messages and choose the one that makes sense.
+# Or we can do it the Sherlock Holmes' way. If the sentence is long enough and in English, the letter with the most appearance is "e". 
+# Therefore, we'll find the letter that appears the most in the message:
+def find_e(message):
+    max_appear = ""
+    max_num = 0
+    for character in message:
+        if ord(character) >= ascii_of_a and ord(character) <= ascii_of_z:
+            num = message.count(character)
+            if num > max_num:
+                max_num = num
+                max_appear = character
+    return max_appear
+# If we know that letter is "e" in the original message, then we can work out the offset value:
+letter_e = find_e(message)
+offset = (ascii_of_z - ord(letter_e)) + (ord("e") - ascii_of_a) + 1
+print(decode(message, offset))
+# Not 100% guarantee, but surprisingly highly accurate.
+
