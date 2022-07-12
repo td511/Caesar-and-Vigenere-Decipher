@@ -1,0 +1,45 @@
+# Decoding Vigenere Cipher
+def vigenere_decode(message, keyword):
+    new_message = ""
+    # Create the shift value array from the keyword
+    offset_from_keyword = [ord(character) - ascii_of_a for character in keyword]
+    count = 0
+    for character in message:
+        # To make sure that the character is in the alphabet
+        if ord(character) >= ascii_of_a and ord(character) <= ascii_of_z:
+            offset = offset_from_keyword[count % len(keyword)]
+            num = ord(character)
+            # In case the offseted value goes out of the alphabet
+            if num - offset < ascii_of_a:
+                diff = ascii_of_a - (num - offset)
+                new_num = ascii_of_z - diff + 1
+                letter = chr(new_num)
+                new_message += letter
+            else:
+                new_message += chr(num - offset)
+            # Only increase the count if the character is in the alphabet
+            count += 1
+        else:
+            new_message += character
+    return new_message
+    
+# Coding Vigenere Cipher
+def vigenere_code(message, keyword):
+    new_message = ""
+    offset_from_keyword = [ord(character) - ascii_of_a for character in keyword]
+    count = 0
+    for character in message:
+        num = ord(character)
+        if num >= ascii_of_a and num <= ascii_of_z:
+            offset = offset_from_keyword[count % len(keyword)]
+            if num + offset > ascii_of_z:
+                diff = num + offset - ascii_of_z
+                new_num = ascii_of_a + diff - 1
+                letter = chr(new_num)
+                new_message += letter
+            else:
+                new_message += chr(num + offset)
+            count += 1
+        else:
+            new_message += character
+    return new_message
