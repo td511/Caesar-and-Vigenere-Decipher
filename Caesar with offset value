@@ -1,0 +1,40 @@
+# The ASCII value of the first and last letter of the alphabet:
+ascii_of_z = ord("z")
+ascii_of_a = ord("a")
+
+# Decoding a Caesar Cipher with the offset value
+def decode(message, offset):
+    new_message = ""
+    for character in message:
+        # To make sure the character is in the alphabet
+        if ord(character) >= ascii_of_a and ord(character) <= ascii_of_z:
+            letter = ""
+            num = ord(character)
+            # In case the offseted value goes out of the alphabet
+            if num + offset > ascii_of_z:
+                new_num = (num + offset - ascii_of_z) + ascii_of_a - 1
+                letter = chr(new_num)
+            else:    
+                letter = chr(num + offset)
+            new_message += letter
+        # Keep all punctuations unchanged
+        else:
+            new_message += character   
+    return new_message
+    
+# Coding a Caesar Cipher with the offset value
+def code(offset, message):
+    new_message = ""
+    for character in message:
+        num = ord(character)
+        if num <= ascii_of_a or num >= ascii_of_z:
+            new_message += character
+        else:
+            if num - offset < ascii_of_a:
+                diff = ascii_of_a - (num - offset)
+                new_num = ascii_of_z - diff + 1
+                letter = chr(new_num)
+                new_message += letter
+            else:
+                new_message += chr(num - offset)
+    return new_message
